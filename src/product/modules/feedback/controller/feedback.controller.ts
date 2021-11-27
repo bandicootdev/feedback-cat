@@ -15,7 +15,7 @@ export class FeedbackController {
     return this.feedBackService.getFeedBacksForProduct(id);
   }
 
-  @Post('/:id/feedback')
+  @Post('/feedback')
   createFeedBack(@Body() createFeedBack: CreateFeedbackDto) {
     return this.feedBackService.createFeedBack(createFeedBack);
   }
