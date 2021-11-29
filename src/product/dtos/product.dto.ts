@@ -1,21 +1,20 @@
-import { ObjectId } from 'mongoose';
 import { IsMongoId } from 'class-validator';
 import { Exclude, Expose } from 'class-transformer';
 
 export class ProductDto {
   @Exclude()
   @IsMongoId()
-  _id: ObjectId;
+  readonly _id: string;
 
   @Exclude()
-  __v: number;
+  readonly __v: number;
 
   @Expose()
-  id: string;
+  readonly id: string;
 
   @Expose()
-  name: string;
+  readonly name: string;
 
   @Expose()
-  description: string;
+  readonly description: string;
 }

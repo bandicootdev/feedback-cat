@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { CommentsModule } from './modules/comments/comments.module';
-import { CategoryModule } from '../category/category.module';
 import { FeedbackService } from './service/feedback.service';
 import { FeedbackController } from './controller/feedback.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Feedback, FeedbackSchema } from './schemas/feedback.schema';
+import { AuthModule } from '../../../auth/auth.module';
+import { CommentsModule } from './modules/comments/comments.module';
+import { FeedbackstatusModule } from './modules/feedbackstatus/feedbackstatus.module';
 
 @Module({
   imports: [
@@ -14,8 +15,9 @@ import { Feedback, FeedbackSchema } from './schemas/feedback.schema';
         schema: FeedbackSchema,
       },
     ]),
+    AuthModule,
     CommentsModule,
-    CategoryModule,
+    FeedbackstatusModule,
   ],
   providers: [FeedbackService],
   controllers: [FeedbackController],

@@ -4,6 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { MongooseModule } from '@nestjs/mongoose';
 import { APP_PIPE } from '@nestjs/core';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -32,7 +34,9 @@ import { APP_PIPE } from '@nestjs/core';
       },
       inject: [ConfigService],
     }),
+    AuthModule,
     ProductModule,
+    UserModule,
   ],
   providers: [
     {

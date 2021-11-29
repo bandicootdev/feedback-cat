@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Product, ProductDocument } from '../schemas/product.schema';
 import { Model } from 'mongoose';
 import { CreateProductDto } from '../dtos/create-product.dto';
-import { nanoid } from 'nanoid/async';
 
 interface IProductService {
   getAllProduct(): Promise<ProductDocument[]>;
@@ -31,7 +30,6 @@ export class ProductService implements IProductService {
   ): Promise<ProductDocument> {
     try {
       const productSnapShot = new this.productModel({
-        id: await nanoid(),
         ...createProductDto,
       });
       return productSnapShot.save();

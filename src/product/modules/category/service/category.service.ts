@@ -8,7 +8,6 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Category, CategoryDocument } from '../schema/category.schema';
 import { Model } from 'mongoose';
-import { nanoid } from 'nanoid';
 
 interface ICategoryService {
   getAllCategories(): Promise<CategoryDocument[]>;
@@ -39,7 +38,7 @@ export class CategoryService implements ICategoryService {
   async internalGetAllCategories(): Promise<CategoryDocument[]> {
     let categories: CategoryDocument[];
     try {
-      categories = await this.categoryModel.find({}, 'name').exec();
+      categories = await this.categoryModel.find().exec();
     } catch (err) {
       throw new InternalServerErrorException();
     }
@@ -49,7 +48,7 @@ export class CategoryService implements ICategoryService {
   async getOneCategory(id: string): Promise<CategoryDocument> {
     let category: CategoryDocument;
     try {
-      category = await this.categoryModel.findById({ id }).exec();
+      category = await this.categoryModel.findOne({ _id: id }).exec();
     } catch (err) {
       throw new InternalServerErrorException();
     }
@@ -64,7 +63,7 @@ export class CategoryService implements ICategoryService {
     const categoriesInDatabase = await this.internalGetAllCategories();
     if (categoriesInDatabase.length === 0) {
       const categoriesSchema = newCategories.map(
-        (name) => new this.categoryModel({ id: nanoid(), name }),
+        (name) => new this.categoryModel({ name }),
       );
       const categoriesCreated = await this.categoryModel.insertMany(
         categoriesSchema,
@@ -74,5 +73,9 @@ export class CategoryService implements ICategoryService {
       );
     }
     this.logger.debug('No categories were created');
+  }
+
+  async getCategoriesIds(ids: string[]): Promise<CategoryDocument[]> {
+    return this.categoryModel.find({ id: { $in: ids } });
   }
 }

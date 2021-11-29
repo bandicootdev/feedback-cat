@@ -1,24 +1,42 @@
 import { Exclude, Expose } from 'class-transformer';
-import { IsMongoId } from 'class-validator';
-import { ObjectId } from 'mongoose';
+import { IUser } from '../../../../user/interfaces/user.interface';
+import { ICategory } from '../../category/interfaces/category.interface';
+import { IProduct } from '../../../interfaces/product.interface';
 
 export class FeedBackDto {
   @Exclude()
-  @IsMongoId()
-  _id: ObjectId;
+  readonly _id: string;
 
   @Exclude()
-  __v: number;
+  readonly __v: number;
 
   @Expose()
-  id: string;
+  readonly id: string;
 
   @Expose()
-  title: string;
+  readonly title: string;
 
   @Expose()
-  description: string;
+  readonly description: string;
 
   @Expose()
-  upVotes: number;
+  readonly upVotes: number;
+
+  @Expose()
+  readonly status: string;
+
+  @Expose()
+  readonly user: IUser;
+
+  @Expose()
+  readonly category: ICategory;
+
+  @Expose()
+  readonly product: IProduct;
+
+  @Expose()
+  readonly createdAt: string;
+
+  @Expose()
+  readonly updatedAt: string;
 }

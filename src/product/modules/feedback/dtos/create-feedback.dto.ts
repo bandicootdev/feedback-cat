@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsObject, IsString } from 'class-validator';
+import { ICategory } from '../../category/interfaces/category.interface';
+import { IProduct } from '../../../interfaces/product.interface';
 
 export class CreateFeedbackDto {
   @IsNotEmpty()
@@ -6,14 +8,14 @@ export class CreateFeedbackDto {
   title: string;
 
   @IsNotEmpty()
-  @IsString()
-  productId: string;
+  @IsObject()
+  product: IProduct;
 
   @IsNotEmpty()
   @IsString()
   description: string;
 
   @IsNotEmpty()
-  @IsString()
-  categoryId: string;
+  @IsObject()
+  category: ICategory;
 }
