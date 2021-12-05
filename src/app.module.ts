@@ -1,12 +1,9 @@
 import { Module, ValidationPipe } from '@nestjs/common';
-import { ProductModule } from './product/product.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { MongooseModule } from '@nestjs/mongoose';
 import { APP_PIPE } from '@nestjs/core';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-
+import { FeedbackModule } from './feedback/feedback.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -34,9 +31,7 @@ import { AuthModule } from './auth/auth.module';
       },
       inject: [ConfigService],
     }),
-    AuthModule,
-    ProductModule,
-    UserModule,
+    FeedbackModule,
   ],
   providers: [
     {
